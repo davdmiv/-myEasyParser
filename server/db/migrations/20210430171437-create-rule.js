@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Rules', {
@@ -6,55 +6,55 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       url: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(1000),
       },
       shrub_rule: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       shrub_cache: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       frequency: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       page_type: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       page_changed: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       last_check: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       duration: {
-        type: Sequelize.TIME
+        type: Sequelize.TIME,
       },
       public: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       description: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       activate_cnt: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
-    });
+        type: Sequelize.DATE,
+      },
+    })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Rules');
-  }
-};
+    await queryInterface.dropTable('Rules')
+  },
+}

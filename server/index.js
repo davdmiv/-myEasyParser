@@ -2,8 +2,7 @@ import dotenv from 'dotenv'
 dotenv.config() // хз как сократить
 
 import express from 'express'
-import sequelize from './db.js'
-// import models from './oldmodels/models.js'
+import db, { sequelize } from './db/models/index.js'
 
 const PORT = process.env.PORT || 5000
 
