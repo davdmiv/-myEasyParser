@@ -9,8 +9,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasMany(models.ChangeNote)
-      this.belongsTo(models.User)
+      this.hasMany(models.ChangeNote, {
+        foreignKey: {
+          name: 'rule_id',
+          allowNull: false,
+        },
+      })
+      this.belongsTo(models.User, {
+        foreignKey: {
+          name: 'user_id',
+          allowNull: false,
+        },
+      })
     }
   }
   Rule.init(
@@ -24,13 +34,15 @@ module.exports = (sequelize, DataTypes) => {
       page_changed: DataTypes.DATE,
       last_check: DataTypes.DATE,
       duration: DataTypes.TIME,
-      public: DataTypes.BOOLEAN,
+      status: DataTypes.BOOLEAN,
       description: DataTypes.TEXT,
       activate_cnt: DataTypes.INTEGER,
     },
     {
       sequelize,
       modelName: 'Rule',
+      underscored: true,
+      tableName: 'rules',
     }
   )
   return Rule

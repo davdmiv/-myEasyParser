@@ -1,17 +1,27 @@
-import dotenv from 'dotenv'
-dotenv.config() // хз как сократить
-
-import express from 'express'
-import db, { sequelize } from './db/models/index.js'
-
+require('dotenv').config()
+const express = require('express')
+const { sequelize, User, Rule, ChangeNote } = require('./db/models/index')
+const cors = require('cors')
 const PORT = process.env.PORT || 5000
+const router = require('./routes/insdex')
+const errorHandler = require('./middleware/ErrorHandlingMiddleware')
 
 const app = express()
+app.use(cors())
+app.use(express.json())
+app.use('/api', router)
+
+//Обработка ошибок, последний Middleware! Потому как не вызывается next() и ответ уходит на клиент
+app.use(errorHandler)
+
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'WORCKING!!!' })
+})
 
 const start = async () => {
   try {
     await sequelize.authenticate()
-    await sequelize.sync({ forse: true })
+    await sequelize.sync()
     app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
   } catch (e) {
     console.log(e)

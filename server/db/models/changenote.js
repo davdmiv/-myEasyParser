@@ -9,7 +9,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.Rule)
+      this.belongsTo(models.Rule, {
+        foreignKey: {
+          name: 'rule_id',
+          allowNull: false,
+        },
+      })
     }
   }
   ChangeNote.init(
@@ -21,6 +26,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'ChangeNote',
+      underscored: true,
+      tableName: 'changenotes',
     }
   )
   return ChangeNote
