@@ -25,18 +25,60 @@ module.exports = (sequelize, DataTypes) => {
   }
   Rule.init(
     {
-      name: DataTypes.STRING,
-      url: DataTypes.STRING,
-      shrub_rule: DataTypes.STRING,
-      shrub_cache: DataTypes.STRING,
-      frequency: DataTypes.DATE,
-      page_type: DataTypes.STRING,
-      page_changed: DataTypes.DATE,
-      last_check: DataTypes.DATE,
-      duration: DataTypes.TIME,
-      status: DataTypes.BOOLEAN,
-      description: DataTypes.TEXT,
-      activate_cnt: DataTypes.INTEGER,
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      url: {
+        type: DataTypes.STRING(1000),
+        allowNull: false,
+      },
+      shrub_rule: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      shrub_cache: {
+        type: DataTypes.STRING,
+      },
+      frequency: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      page_type: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'static',
+      },
+      page_changed: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: null,
+      },
+      last_check: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        defaultValue: null,
+      },
+      duration: {
+        type: DataTypes.TIME,
+        allowNull: true,
+        defaultValue: null,
+      },
+      status: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        defaultValue: '',
+      },
+      activate_cnt: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+      },
     },
     {
       sequelize,

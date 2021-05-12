@@ -20,17 +20,27 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      createdAt: {
+      rule_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'rules',
+          },
+          key: 'id',
+        },
+        allowNull: false,
+      },
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
     })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('ChangeNotes')
+    await queryInterface.dropTable('changenotes')
   },
 }

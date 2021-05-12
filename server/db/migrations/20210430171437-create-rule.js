@@ -62,17 +62,27 @@ module.exports = {
         allowNull: false,
         defaultValue: 0,
       },
-      createdAt: {
+      user_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'users',
+          },
+          key: 'id',
+        },
+        allowNull: false,
+      },
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE,
       },
     })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Rules')
+    await queryInterface.dropTable('rules')
   },
 }

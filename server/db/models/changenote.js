@@ -19,9 +19,18 @@ module.exports = (sequelize, DataTypes) => {
   }
   ChangeNote.init(
     {
-      screenshot_attachment: DataTypes.TEXT,
-      html_attachment: DataTypes.TEXT,
-      check_datetime: DataTypes.DATE,
+      screenshot_attachment: {
+        type: DataTypes.STRING(1000),
+        allowNull: false,
+      },
+      html_attachment: {
+        type: DataTypes.STRING(1000),
+        allowNull: false,
+      },
+      check_datetime: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
     },
     {
       sequelize,
