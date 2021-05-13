@@ -16,7 +16,7 @@ class RuleController {
       status,
       description,
       activate_cnt,
-      UserId,
+      user_id,
     } = req.body
     const rule = await Rule.create({
       name,
@@ -31,7 +31,7 @@ class RuleController {
       status,
       description,
       activate_cnt,
-      UserId,
+      user_id,
     })
     return res.json(rule)
   }
@@ -45,18 +45,3 @@ class RuleController {
 }
 
 module.exports = new RuleController()
-
-// name, url, shrub_rule, shrub_cache, frequency, page_type, page_changed, last_check, duration, public, description, activate_cnt
-
-// name,
-//   url,
-//   shrub_rule,
-//   shrub_cache,
-//   frequency,
-//   page_type,
-//   page_changed,
-//   last_check,
-//   duration,
-//   public,
-//   description,
-//   activate_cnt

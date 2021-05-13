@@ -4,8 +4,8 @@ const userRouter = require('./userRouter')
 const ruleRouter = require('./ruleRouter')
 const changenoteRouter = require('./changenoteRouter')
 
-router.use('/user', userRouter)
-router.use('/rule', ruleRouter)
-router.use('/changenote', changenoteRouter)
+router.use('/users', userRouter)
+router.use('/rules', ruleRouter)
+router.use('/changenotes', changenoteRouter)
 
 module.exports = router
