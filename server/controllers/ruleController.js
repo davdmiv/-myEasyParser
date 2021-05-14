@@ -1,4 +1,5 @@
 const { Rule } = require('../db/models/index')
+const { ChangeNote } = require('../db/models/index')
 const ApiError = require('../error/ApiError')
 
 class RuleController {
@@ -39,7 +40,14 @@ class RuleController {
     const rules = await Rule.findAll()
     return res.json(rules)
   }
-  async getOne(req, res) {}
+  async getOne(req, res) {
+    const { id } = req.params
+    const rule = await Rule.findOne({
+      where: { id },
+      include: [{ model: ChangeNote, as: 'changenotes' }],
+    })
+    return res.json(rule)
+  }
   async updete(req, res) {}
   async delete(req, res) {}
 }

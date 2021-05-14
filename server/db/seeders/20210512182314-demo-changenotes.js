@@ -26,6 +26,9 @@ module.exports = {
       ],
       {}
     )
+    await queryInterface.sequelize.query(
+      `select setval('changenotes_id_seq', (select max(id) from changenotes), true);`
+    )
   },
 
   down: async (queryInterface, Sequelize) => {

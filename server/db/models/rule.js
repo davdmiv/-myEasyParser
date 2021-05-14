@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
           name: 'rule_id',
           allowNull: false,
         },
+        as: 'changenotes',
       })
       this.belongsTo(models.User, {
         foreignKey: {

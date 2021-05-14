@@ -30,8 +30,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       nikname: {
         type: DataTypes.STRING,
-        allowNull: true,
-        defaultValue: '',
+        allowNull: false,
+        defaultValue: 'noname',
       },
     },
     {

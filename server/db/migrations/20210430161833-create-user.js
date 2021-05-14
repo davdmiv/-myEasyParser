@@ -24,8 +24,8 @@ module.exports = {
       },
       nikname: {
         type: Sequelize.STRING,
-        allowNull: true,
-        defaultValue: '',
+        allowNull: false,
+        defaultValue: 'noname',
       },
       created_at: {
         allowNull: false,
