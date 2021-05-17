@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: 'ChangeNote',
       underscored: true,
-      tableName: 'changenotes',
+      tableName: 'change_notes',
     }
   )
   return ChangeNote

@@ -10,6 +10,11 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false,
         },
       })
+      this.belongsToMany(models.Role, {
+        through: 'user_roles',
+        foreignKey: 'user_id',
+        otherKey: 'role_id',
+      })
     }
   }
   User.init(
@@ -22,11 +27,6 @@ module.exports = (sequelize, DataTypes) => {
       password: {
         type: DataTypes.STRING,
         allowNull: false,
-      },
-      role: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: 'USER',
       },
       nikname: {
         type: DataTypes.STRING,

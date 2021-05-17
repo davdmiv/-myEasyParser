@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.bulkInsert(
-      'changenotes',
+      'change_notes',
       [
         {
           id: 1,
@@ -27,11 +27,11 @@ module.exports = {
       {}
     )
     await queryInterface.sequelize.query(
-      `select setval('changenotes_id_seq', (select max(id) from changenotes), true);`
+      `select setval('change_notes_id_seq', (select max(id) from change_notes), true);`
     )
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('changenotes', null, {})
+    await queryInterface.bulkDelete('change_notes', null, {})
   },
 }
