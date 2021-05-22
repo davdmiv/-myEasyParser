@@ -15,6 +15,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'user_id',
         otherKey: 'role_id',
       })
+      this.belongsToMany(models.Rule, {
+        through: models.UserRule,
+        foreignKey: 'user_id',
+        otherKey: 'rule_id',
+      })
     }
   }
   User.init(
@@ -32,6 +37,26 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: 'noname',
+      },
+      dynamic_rules_limit: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 2,
+      },
+      static_rules_limit: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 5,
+      },
+      dynamic_rules_owner: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+      },
+      static_rules_owner: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
       },
     },
     {

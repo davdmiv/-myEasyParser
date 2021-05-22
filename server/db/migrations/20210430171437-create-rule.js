@@ -47,7 +47,7 @@ module.exports = {
         allowNull: true,
         defaultValue: null,
       },
-      status: {
+      public_status: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,
@@ -61,6 +61,11 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         defaultValue: 0,
+      },
+      activate_status: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
       },
       user_id: {
         type: Sequelize.INTEGER,

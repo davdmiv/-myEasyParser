@@ -17,11 +17,26 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      // role: {
-      //   type: Sequelize.STRING,
-      //   allowNull: false,
-      //   defaultValue: 'USER',
-      // },
+      dynamic_rules_limit: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 2,
+      },
+      static_rules_limit: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 5,
+      },
+      dynamic_rules_owner: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+      },
+      static_rules_owner: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+      },
       nikname: {
         type: Sequelize.STRING,
         allowNull: false,

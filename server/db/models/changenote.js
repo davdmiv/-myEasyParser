@@ -26,6 +26,17 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DATE,
         allowNull: false,
       },
+      shrub_rule: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      shrub_rule_cache: {
+        type: DataTypes.STRING,
+      },
+      shrub_calc_cache: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
     {
       sequelize,

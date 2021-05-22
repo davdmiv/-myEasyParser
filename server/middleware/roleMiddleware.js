@@ -8,7 +8,6 @@ module.exports = function (roles) {
     }
     try {
       const token = req.headers.authorization.split(' ')[1]
-      console.log('############# ok')
       if (!token) {
         return next(ApiError.forbidden('Пользователь не авторизован'))
       }

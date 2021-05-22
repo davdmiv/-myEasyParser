@@ -17,6 +17,11 @@ module.exports = (sequelize, DataTypes) => {
           allowNull: false,
         },
       })
+      this.belongsToMany(models.User, {
+        through: models.UserRule,
+        foreignKey: 'rule_id',
+        otherKey: 'user_id',
+      })
     }
   }
   Rule.init(
@@ -60,7 +65,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         defaultValue: null,
       },
-      status: {
+      public_status: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
@@ -74,6 +79,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,
+      },
+      activate_status: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
       },
     },
     {

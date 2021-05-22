@@ -1,0 +1,24 @@
+.link-to-main {
+  color: white;
+  margin-right: 20px;
+}
+
+.link-to-auth {
+  color: white;
+  margin-right: 20px;
+}
+
+.auth-form {
+  height: 354px;
+}
+
+.auth-card {
+  width: 600px;
+}
+
+.main-h1-welcome {
+  margin: 30px auto;
+}
+/* .my-nav-style {
+  color: white;
+} */

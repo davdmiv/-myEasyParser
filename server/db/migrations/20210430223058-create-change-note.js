@@ -16,6 +16,17 @@ module.exports = {
         type: Sequelize.STRING(1000),
         allowNull: false,
       },
+      shrub_rule: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      shrub_rule_cache: {
+        type: Sequelize.STRING,
+      },
+      shrub_calc_cache: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       check_datetime: {
         type: Sequelize.DATE,
         allowNull: false,
