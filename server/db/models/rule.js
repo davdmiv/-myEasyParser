@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: {
           name: 'rule_id',
           allowNull: false,
+          onDelete: 'cascade',
         },
         as: 'changenotes',
       })
@@ -16,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
           name: 'user_id',
           allowNull: false,
         },
+        as: 'owner',
       })
       this.belongsToMany(models.User, {
         through: models.UserRule,

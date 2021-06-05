@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const ApiError = require('../error/ApiError')
 
-module.exports = function (roles) {
+module.exports = function (allowedRoles) {
   return function (req, res, next) {
     if (req.method === 'OPTIONS') {
       next()
@@ -9,18 +9,19 @@ module.exports = function (roles) {
     try {
       const token = req.headers.authorization.split(' ')[1]
       if (!token) {
-        return next(ApiError.forbidden('Пользователь не авторизован'))
+        return next(ApiError.forbidden('Пользователь не авторизован token'))
       }
-      const { roles: userRoles } = jwt.verify(token, process.env.SECRET_KEY)
+      const { id, email, roles } = jwt.verify(token, process.env.SECRET_KEY)
       let hasRole = false
-      userRoles.forEach((role) => {
-        if (roles.includes(role)) {
+      roles.forEach((role) => {
+        if (allowedRoles.includes(role)) {
           hasRole = true
         }
       })
       if (!hasRole) {
         return next(ApiError.forbidden('У вас нет доступа'))
       }
+      req.user = { id, email, roles }
       next()
     } catch (e) {
       return next(ApiError.forbidden('Пользователь не авторизован'))

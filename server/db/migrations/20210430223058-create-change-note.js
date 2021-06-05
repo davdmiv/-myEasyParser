@@ -39,6 +39,8 @@ module.exports = {
           },
           key: 'id',
         },
+        onUpdate: 'cascade',
+        onDelete: 'cascade',
         allowNull: false,
       },
       created_at: {

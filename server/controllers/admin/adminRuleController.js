@@ -1,32 +1,8 @@
-const { Rule, Privilege, User, UserRule } = require('../db/models/index')
+const { Rule, Privilege, User, UserRule } = require('../../db/models/index')
 const jwt = require('jsonwebtoken')
-const ApiError = require('../error/ApiError')
+const ApiError = require('../../error/ApiError')
 
-const checkShowPermition = async (user, rule) => {
-  if (user.id === rule.user_id) return true
-  const userRules = await UserRule.findOne({
-    where: { user_id: user.id, rule_id: rule.id },
-    include: [
-      { model: Privilege, as: 'privilege', where: { title: 'Подписчик' } },
-    ],
-  })
-  return !!userRules
-}
-
-const checkEditPermition = async (user, rule) => {
-  if (user.id === rule.user_id) return true
-  const userRules = await UserRule.findOne({
-    where: { user_id: user.id, rule_id: rule.id },
-    include: [
-      { model: Privilege, as: 'privilege', where: { title: 'Владелец' } },
-    ],
-  })
-  return !!userRules
-}
-
-const isUserAdmin = (user) => user.roles.includes('ADMIN')
-
-class RuleController {
+class AdminRuleController {
   async showPublic(req, res) {
     const { id } = req.params
     const rule = await Rule.findOne({
@@ -153,4 +129,4 @@ class RuleController {
   async delete(req, res) {}
 }
 
-module.exports = new RuleController()
+module.exports = new AdminRuleController()

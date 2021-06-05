@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
           name: 'privilege_id',
           allowNull: false,
         },
+        as: 'privilege',
       })
       this.belongsTo(models.User, {
         foreignKey: {

@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: {
           name: 'user_id',
           allowNull: false,
+          onDelete: 'cascade',
         },
       })
       this.belongsToMany(models.Role, {
