@@ -1,5 +1,4 @@
-const { Rule, Privilege, User, UserRule } = require('../db/models/index')
-const jwt = require('jsonwebtoken')
+const { Rule, Privilege, UserRule } = require('../db/models/index')
 const ApiError = require('../error/ApiError')
 
 const checkShowPermition = async (user, rule) => {
@@ -23,8 +22,6 @@ const checkEditPermition = async (user, rule) => {
   })
   return !!userRules
 }
-
-const isUserAdmin = (user) => user.roles.includes('ADMIN')
 
 class RuleController {
   async showPublic(req, res) {
@@ -53,7 +50,7 @@ class RuleController {
       return next(ApiError.badRequest('Нет такого правила'))
     }
 
-    if (isUserAdmin(req.user) || (await checkShowPermition(req.user, rule))) {
+    if (await checkShowPermition(req.user, rule)) {
       return res.json({ rule })
     }
 
@@ -62,7 +59,7 @@ class RuleController {
 
   async index(req, res) {
     const rules = await Rule.findAll()
-    return res.json(rules)
+    return res.json({ rules })
   }
 
   async testRule(req, res) {
@@ -73,7 +70,6 @@ class RuleController {
   // фильный create, когда все данные протестированы и собраны
   async create(req, res) {
     const {
-      id,
       name,
       url,
       shrub_rule,
@@ -87,11 +83,7 @@ class RuleController {
       description,
       activate_cnt,
       activate_status,
-      user_id,
     } = req.body
-
-    // костыль на случай единой формы у админа и юзера для создания правила
-    const validId = !!req.user.roles.includes('ADMIN') ? user_id : req.user.id
 
     const rule = await Rule.create({
       name,
@@ -107,14 +99,23 @@ class RuleController {
       description,
       activate_cnt,
       activate_status,
-      user_id: validId,
+      user_id: req.user.id,
     })
-    return res.json(rule)
+
+    //костыль
+    if (rule) {
+      await UserRule.create({
+        user_id: req.user.id,
+        rule_id: rule.id,
+        privilege_id: 1,
+      })
+    }
+    return res.json({ rule })
   }
 
-  async updete(req, res) {
+  async update(req, res, next) {
+    const { id } = req.params
     const {
-      id,
       name,
       url,
       shrub_rule,
@@ -128,11 +129,15 @@ class RuleController {
       description,
       activate_cnt,
       activate_status,
-      user_id,
     } = req.body
 
-    await rule.updete({
-      id,
+    const rule = await Rule.findByPk(id, { include: 'changenotes' })
+
+    if (!(await checkEditPermition(req.user, rule))) {
+      return next(ApiError.forbidden('У вас нет доступа к данному правилу'))
+    }
+
+    await rule.update({
       name,
       url,
       shrub_rule,
@@ -146,11 +151,20 @@ class RuleController {
       description,
       activate_cnt,
       activate_status,
-      user_id: validId,
     })
-    return res.json(rule)
+    return res.json({ rule })
   }
-  async delete(req, res) {}
+
+  async delete(req, res, next) {
+    const { id } = req.params
+    const rule = await Rule.findByPk(id)
+
+    if (!(await checkEditPermition(req.user, rule))) {
+      return next(ApiError.forbidden('У вас нет доступа к данному правилу'))
+    }
+    await rule.destroy()
+    return res.json({ rule })
+  }
 }
 
 module.exports = new RuleController()

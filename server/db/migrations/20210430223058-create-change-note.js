@@ -31,6 +31,9 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
+      user_note: {
+        type: Sequelize.STRING(1000),
+      },
       rule_id: {
         type: Sequelize.INTEGER,
         references: {

@@ -2,7 +2,6 @@ const { User, Role } = require('../db/models/index')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const ApiError = require('../error/ApiError')
-const { Op } = require('sequelize')
 
 const generateJwt = (id, email, roles) => {
   return jwt.sign({ id, email, roles }, process.env.SECRET_KEY, {
@@ -18,73 +17,11 @@ class UserController {
     return res.json({ user })
   }
 
-  async index(req, res) {
-    const users = await User.findAll({ include: Role })
-    return res.json({ users })
-  }
-
-  async create(req, res, next) {
-    const {
-      email,
-      password,
-      nikname,
-      dynamic_rules_limit,
-      static_rules_limit,
-      dinamic_rules_owner,
-      static_rules_owner,
-      roles,
-    } = req.body
-
-    if (!email || !password) {
-      return next(ApiError.badRequest('Некорректный email или пароль'))
-    }
-
-    const candidate = await User.findOne({ where: { email } })
-
-    if (candidate) {
-      return next(
-        ApiError.badRequest('Пользователь с таким email уже существует')
-      )
-    }
-
-    const hashPassword = await bcrypt.hash(password, 5)
-
-    const user = await User.create({
-      email,
-      password: hashPassword,
-      nikname,
-      dynamic_rules_limit,
-      static_rules_limit,
-      dinamic_rules_owner,
-      static_rules_owner,
-    })
-
-    const allUserRoles = await Role.findAll({
-      where: { id: { [Op.or]: [...roles] } },
-    })
-
-    if (allUserRoles) {
-      await user.addRole(allUserRoles)
-    }
-
-    await user.reload({ include: Role })
-    return res.json({ user })
-  }
-
   async update(req, res, next) {
     // не гоняй пароль, если пришёл, то обновляй, если нет, то нет
-    const {
-      id,
-      email,
-      password,
-      nikname,
-      dynamic_rules_limit,
-      static_rules_limit,
-      dinamic_rules_owner,
-      static_rules_owner,
-    } = req.body
+    const { id, email, password, nikname } = req.body
 
-    const user = await User.findByPk(id)
+    const user = await User.findByPk(id, { include: Role })
 
     if (!user) {
       return next(ApiError.badRequest('Нет такого пользователя'))
@@ -100,21 +37,28 @@ class UserController {
       email,
       password: !!newPassword ? newPassword : password,
       nikname,
-      dynamic_rules_limit,
-      static_rules_limit,
-      dinamic_rules_owner,
-      static_rules_owner,
     })
-    return res.json(user)
+
+    const token = generateJwt(
+      user.id,
+      user.email,
+      user.Roles.map((e) => e.name)
+    )
+
+    return res.json({ token })
   }
 
   async delete(req, res, next) {
     const { id } = req.params
-    const deleted = await User.destroy({ where: { id } })
-    if (deleted) {
-      return res.json({ message: 'Пользователь удалён' })
+    if (req.user.id === id) {
+      const user = await User.destroy({ where: { id } })
+      return res.json({ user })
     }
-    return next(ApiError.badRequest('Нет такого пользователя'))
+    return next(
+      ApiError.forbidden(
+        'Сожалеем, но вы не можете удалить другого пользователя'
+      )
+    )
   }
 
   async registration(req, res, next) {
@@ -130,7 +74,7 @@ class UserController {
     }
     const hashPassword = await bcrypt.hash(password, 5)
     const user = await User.create({ email, password: hashPassword })
-    await user.addRole(await Role.findOne({ where: { name: 'user' } }))
+    await user.addRole(await Role.findOne({ where: { name: 'USER' } }))
     await user.reload({ include: Role })
     const token = generateJwt(
       user.id,
@@ -159,7 +103,7 @@ class UserController {
     return res.json({ token })
   }
 
-  async check(req, res, next) {
+  async check(req, res) {
     const token = generateJwt(req.user.id, req.user.email, req.user.roles)
     res.json({ token })
   }

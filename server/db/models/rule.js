@@ -8,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: {
           name: 'rule_id',
           allowNull: false,
-          onDelete: 'cascade',
         },
+        onDelete: 'CASCADE',
         as: 'changenotes',
       })
       this.belongsTo(models.User, {
@@ -17,12 +17,14 @@ module.exports = (sequelize, DataTypes) => {
           name: 'user_id',
           allowNull: false,
         },
+        onDelete: 'CASCADE',
         as: 'owner',
       })
       this.belongsToMany(models.User, {
         through: models.UserRule,
         foreignKey: 'rule_id',
         otherKey: 'user_id',
+        onDelete: 'CASCADE',
       })
     }
   }
@@ -85,6 +87,7 @@ module.exports = (sequelize, DataTypes) => {
       activate_status: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
+        defaultValue: true,
       },
     },
     {

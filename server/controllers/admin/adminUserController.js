@@ -1,13 +1,11 @@
-const { User, Role } = require('../db/models/index')
+const { User, Role } = require('../../db/models/index')
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const ApiError = require('../error/ApiError')
+const ApiError = require('../../error/ApiError')
 const { Op } = require('sequelize')
 
 class AdminUserController {
   async show(req, res) {
     const { id } = req.params
-    // const user = await User.findOne({ where: { id }, include: Role })
     const user = await User.findByPk(id, { include: Role })
     return res.json({ user })
   }
@@ -104,11 +102,8 @@ class AdminUserController {
 
   async delete(req, res, next) {
     const { id } = req.params
-    const deleted = await User.destroy({ where: { id } })
-    if (deleted) {
-      return res.json({ message: 'Пользователь удалён' })
-    }
-    return next(ApiError.badRequest('Нет такого пользователя'))
+    const user = await User.destroy({ where: { id } })
+    return res.json(user)
   }
 }
 

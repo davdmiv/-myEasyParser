@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
           name: 'rule_id',
           allowNull: false,
         },
+        onDelete: 'CASCADE',
       })
     }
   }
@@ -36,6 +37,9 @@ module.exports = (sequelize, DataTypes) => {
       shrub_calc_cache: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      user_note: {
+        type: DataTypes.STRING(1000),
       },
     },
     {

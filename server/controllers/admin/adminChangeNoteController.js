@@ -1,27 +1,28 @@
-const { ChangeNote } = require('../db/models/index')
+const { ChangeNote } = require('../../db/models/index')
+
 class AdminChangeNoteController {
   async show(req, res) {
-    const { id } = req.query
-    const changenote = await ChangeNote.findOne({ id })
-    return res.json(changenote)
+    const { id } = req.params
+    const changeNote = await ChangeNote.findByPk({ id })
+    return res.json(changeNote)
   }
+
   async index(req, res) {
-    const changenotes = await ChangeNote.findAll()
-    return res.json(changenotes)
+    const changeNotes = await ChangeNote.findAll()
+    return res.json(changeNotes)
   }
-  // async create(req, res) {
-  //   const { screenshot_attachment, html_attachment, check_datetime, rule_id } =
-  //     req.body
-  //   const changenote = await ChangeNote.create({
-  //     screenshot_attachment,
-  //     html_attachment,
-  //     check_datetime,
-  //     rule_id,
-  //   })
-  //   return res.json(changenote)
-  // }
-  async updete(req, res) {}
-  async delete(req, res) {}
+
+  async update(req, res) {
+    const { id, user_note } = req.params
+    const changeNote = await ChangeNote.update({ id, user_note })
+    return res.json(changeNote)
+  }
+
+  async delete(req, res) {
+    const { id } = req.params
+    const changeNote = await ChangeNote.destroy({ where: { id } })
+    return res.json(changeNote)
+  }
 }
 
 module.exports = new AdminChangeNoteController()
