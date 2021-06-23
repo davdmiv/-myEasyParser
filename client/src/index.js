@@ -5,6 +5,7 @@ import ChangeNoteStore from './store/ChangeNoteStore'
 import RoleStore from './store/RoleStore'
 import RuleStore from './store/RuleStore'
 import UserStore from './store/UserStore'
+import './index.css'
 
 export const Context = createContext(null)
 

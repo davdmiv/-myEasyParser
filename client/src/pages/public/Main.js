@@ -3,9 +3,12 @@ import { Table, Container, Row, Col } from 'react-bootstrap'
 import { Context } from '../../index'
 import { observer } from 'mobx-react-lite'
 import { fetchPublicRules } from '../../http/ruleAPI'
+import { NavLink, useHistory } from 'react-router-dom'
+import { PUBLIC_RULES_ROUTE } from '../../utils/consts'
 
 const Main = observer(() => {
   const { user, rule } = useContext(Context)
+  const history = useHistory()
 
   useEffect(() => {
     fetchPublicRules()
@@ -43,6 +46,7 @@ const Main = observer(() => {
             <th>url</th>
             <th>Время последней проверки</th>
             <th>Время последнего изменения</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -53,6 +57,15 @@ const Main = observer(() => {
               <td>{url}</td>
               <td>{last_check}</td>
               <td>{page_changed}</td>
+              <td>
+                <NavLink
+                  // className="link-to-auth"
+                  onClick={() => history.push(PUBLIC_RULES_ROUTE + '/' + id)}
+                  to={PUBLIC_RULES_ROUTE + '/' + id}
+                >
+                  Смотреть
+                </NavLink>
+              </td>
             </tr>
           ))}
         </tbody>

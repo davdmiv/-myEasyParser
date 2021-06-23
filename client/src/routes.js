@@ -33,94 +33,87 @@ import {
   // ADMIN_ROUTE,
   LOGIN_ROUTE,
   REGISTRATION_ROUTE,
-  // /admin/users
-  ADMIN_USERS_ROUTE_INDEX,
-  ADMIN_USERS_ROUTE_NEW,
-  ADMIN_USERS_ROUTE_SHOW,
-  ADMIN_USERS_ROUTE_EDIT,
-  // /admin/rules
-  ADMIN_RULES_ROUTE_INDEX,
-  ADMIN_RULES_ROUTE_NEW,
-  ADMIN_RULES_ROUTE_SHOW,
-  ADMIN_RULES_ROUTE_EDIT,
-  // /admin/changenotes
-  ADMIN_CHANGE_NOTES_ROUTE_INDEX,
-  ADMIN_CHANGE_NOTES_ROUTE_SHOW,
-  // /admin/userrules
-  ADMIN_USER_RULES_ROUTE_INDEX,
-  ADMIN_USER_RULES_ROUTE_NEW,
-  ADMIN_USER_RULES_ROUTE_EDIT,
-  // /public/rules
-  PUBLIC_RULES_ROUTE_INDEX,
-  PUBLIC_RULES_ROUTE_SHOW,
-  // /rules
-  RULES_ROUTE_INDEX,
-  RULES_ROUTE_NEW,
-  RULES_ROUTE_SHOW,
-  RULES_ROUTE_EDIT,
-  // /changenotes
-  CHANGE_NOTES_ROUTE_INDEX,
-  CHANGE_NOTES_ROUTE_SHOW,
-  // /users
-  USERS_ROUTE_SHOW,
-  USERS_ROUTE_EDIT,
+  // /admin
+  ADMIN_USERS_ROUTE, // /admin/users
+  ADMIN_RULES_ROUTE, // /admin/rules
+  ADMIN_CHANGE_NOTES_ROUTE, // /admin/changenotes
+  ADMIN_USER_RULES_ROUTE, // /admin/userrules
+  // /public
+  PUBLIC_RULES_ROUTE, // /public/rules
+  // /auth
+  RULES_ROUTE, // /rules
+  CHANGE_NOTES_ROUTE, // /changenotes
+  USERS_ROUTE, // /users
 } from './utils/consts'
 
 export const adminRoutes = [
   // /admin/users
   {
-    path: ADMIN_USERS_ROUTE_INDEX,
-    Component: AdminUsersIndex,
-  },
-  {
-    path: ADMIN_USERS_ROUTE_SHOW,
+    // show
+    path: ADMIN_USERS_ROUTE + '/:id',
     Component: AdminUsersShow,
   },
   {
-    path: ADMIN_USERS_ROUTE_NEW,
+    // index
+    path: ADMIN_USERS_ROUTE,
+    Component: AdminUsersIndex,
+  },
+  {
+    // new
+    path: ADMIN_USERS_ROUTE + '/new',
     Component: AdminUsers,
   },
   {
-    path: ADMIN_USERS_ROUTE_EDIT,
+    // edit
+    path: ADMIN_USERS_ROUTE + '/:id/edit',
     Component: AdminUsers,
   },
   // /admin/rules
   {
-    path: ADMIN_RULES_ROUTE_INDEX,
-    Component: AdminRulesIndex,
-  },
-  {
-    path: ADMIN_RULES_ROUTE_NEW,
-    Component: AdminRules,
-  },
-  {
-    path: ADMIN_RULES_ROUTE_SHOW,
+    // show
+    path: ADMIN_RULES_ROUTE + '/:id',
     Component: AdminRulesShow,
   },
   {
-    path: ADMIN_RULES_ROUTE_EDIT,
+    // index
+    path: ADMIN_RULES_ROUTE,
+    Component: AdminRulesIndex,
+  },
+  {
+    // new
+    path: ADMIN_RULES_ROUTE + '/new',
+    Component: AdminRules,
+  },
+  {
+    // edit
+    path: ADMIN_RULES_ROUTE + '/:id/edit',
     Component: AdminRules,
   },
   // /admin/changenotes
   {
-    path: ADMIN_CHANGE_NOTES_ROUTE_INDEX,
-    Component: AdminChangeNotesIndex,
+    // show
+    path: ADMIN_CHANGE_NOTES_ROUTE + '/:id',
+    Component: AdminChangeNotesShow,
   },
   {
-    path: ADMIN_CHANGE_NOTES_ROUTE_SHOW,
-    Component: AdminChangeNotesShow,
+    // index
+    path: ADMIN_CHANGE_NOTES_ROUTE,
+    Component: AdminChangeNotesIndex,
   },
   // /admin/userrules
   {
-    path: ADMIN_USER_RULES_ROUTE_INDEX,
+    // index
+    path: ADMIN_USER_RULES_ROUTE,
     Component: AdminUserRulesIndex,
   },
   {
-    path: ADMIN_USER_RULES_ROUTE_NEW,
+    // new
+    path: ADMIN_USER_RULES_ROUTE + '/new',
     Component: AdminUserRules,
   },
   {
-    path: ADMIN_USER_RULES_ROUTE_EDIT,
+    // edit
+    path: ADMIN_USER_RULES_ROUTE + '/edit',
     Component: AdminUserRules,
   },
 ]
@@ -128,37 +121,45 @@ export const adminRoutes = [
 export const userRoutes = [
   // /rules
   {
-    path: RULES_ROUTE_INDEX,
-    Component: RulesIndex,
-  },
-  {
-    path: RULES_ROUTE_NEW,
-    Component: Rules,
-  },
-  {
-    path: RULES_ROUTE_SHOW,
+    // show
+    path: RULES_ROUTE + '/:id',
     Component: RulesShow,
   },
   {
-    path: RULES_ROUTE_EDIT,
+    // index
+    path: RULES_ROUTE,
+    Component: RulesIndex,
+  },
+  {
+    // new
+    path: RULES_ROUTE + '/new',
+    Component: Rules,
+  },
+  {
+    // edit
+    path: RULES_ROUTE + '/:id/edit',
     Component: Rules,
   },
   // /changenotes
   {
-    path: CHANGE_NOTES_ROUTE_INDEX,
-    Component: ChangeNotesIndex,
+    // show
+    path: CHANGE_NOTES_ROUTE + '/:id',
+    Component: ChangeNotesShow,
   },
   {
-    path: CHANGE_NOTES_ROUTE_SHOW,
-    Component: ChangeNotesShow,
+    // index
+    path: CHANGE_NOTES_ROUTE,
+    Component: ChangeNotesIndex,
   },
   // /users
   {
-    path: USERS_ROUTE_SHOW,
+    // show
+    path: USERS_ROUTE + '/:id',
     Component: UsersShow,
   },
   {
-    path: USERS_ROUTE_EDIT,
+    // edit
+    path: USERS_ROUTE + '/:id/edit',
     Component: Users,
   },
 ]
@@ -166,12 +167,14 @@ export const userRoutes = [
 export const publicRoutes = [
   // /public/rules
   {
-    path: PUBLIC_RULES_ROUTE_INDEX,
-    Component: PublicRulesIndex,
+    // show
+    path: PUBLIC_RULES_ROUTE + '/:id',
+    Component: PublicRulesShow,
   },
   {
-    path: PUBLIC_RULES_ROUTE_SHOW,
-    Component: PublicRulesShow,
+    // index
+    path: PUBLIC_RULES_ROUTE,
+    Component: PublicRulesIndex,
   },
   // /login
   {
