@@ -97,13 +97,13 @@ class AdminUserController {
       dinamic_rules_owner,
       static_rules_owner,
     })
-    return res.json(user)
+    return res.json({ user })
   }
 
   async delete(req, res, next) {
     const { id } = req.params
     const user = await User.destroy({ where: { id } })
-    return res.json(user)
+    return res.json({ user })
   }
 }
 

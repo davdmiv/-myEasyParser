@@ -11,7 +11,7 @@ class AdminRuleController {
 
   async index(req, res) {
     const rules = await Rule.findAll()
-    return res.json(rules)
+    return res.json({ rules })
   }
 
   async testRule(req, res) {
@@ -54,7 +54,7 @@ class AdminRuleController {
       activate_status,
       user_id,
     })
-    return res.json(rule)
+    return res.json({ rule })
   }
 
   async update(req, res) {
@@ -93,13 +93,13 @@ class AdminRuleController {
       activate_status,
       user_id,
     })
-    return res.json(rule)
+    return res.json({ rule })
   }
 
   async delete(req, res, next) {
     const { id } = req.params
     const rule = await Rule.destroy({ where: { id } })
-    return res.json(rule)
+    return res.json({ rule })
   }
 }
 

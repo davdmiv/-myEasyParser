@@ -19,6 +19,10 @@
 .main-h1-welcome {
   margin: 30px auto;
 }
+
+body {
+  background-color: #e9ecef;
+}
 /* .my-nav-style {
   color: white;
 } */

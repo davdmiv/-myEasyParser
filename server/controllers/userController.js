@@ -12,14 +12,18 @@ const generateJwt = (id, email, roles) => {
 class UserController {
   async show(req, res) {
     const { id } = req.params
-    // const user = await User.findOne({ where: { id }, include: Role })
     const user = await User.findByPk(id, { include: Role })
     return res.json({ user })
   }
 
   async update(req, res, next) {
-    // не гоняй пароль, если пришёл, то обновляй, если нет, то нет
     const { id, email, password, nikname } = req.body
+
+    if (req.user.id !== id) {
+      return next(
+        ApiError.forbidden('Нет доступа, обновление другого пользователя')
+      )
+    }
 
     const user = await User.findByPk(id, { include: Role })
 
@@ -33,19 +37,27 @@ class UserController {
       newPassword = await bcrypt.hash(password, 5)
     }
 
-    await user.update({
-      email,
-      password: !!newPassword ? newPassword : password,
-      nikname,
-    })
+    await user
+      .update({
+        email,
+        password: !!newPassword ? newPassword : password,
+        nikname,
+      })
+      .then(
+        (resolve) => {
+          const token = generateJwt(
+            user.id,
+            user.email,
+            user.Roles.map((e) => e.name)
+          )
+          return res.json({ token })
+        },
+        (reject) => {
+          return next(ApiError.badRequest('Ошибка при обновлении данных'))
+        }
+      )
 
-    const token = generateJwt(
-      user.id,
-      user.email,
-      user.Roles.map((e) => e.name)
-    )
-
-    return res.json({ token })
+    // return res.json({ token })
   }
 
   async delete(req, res, next) {
