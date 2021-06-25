@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { Table, Container, Row, Col } from 'react-bootstrap'
+import { Table, Container, Row } from 'react-bootstrap'
 import { Context } from '../../index'
 import { observer } from 'mobx-react-lite'
 import { fetchPublicRules } from '../../http/ruleAPI'
@@ -27,18 +27,16 @@ const PublicRulesIndex = observer(() => {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>id</th>
             <th>Наименование</th>
             <th>url</th>
             <th>Время последней проверки</th>
             <th>Время последнего изменения</th>
-            <th></th>
+            <th>Просмотр</th>
           </tr>
         </thead>
         <tbody>
           {rule.rules.map(({ id, name, url, last_check, page_changed }) => (
             <tr key={id}>
-              <td>{id}</td>
               <td>{name}</td>
               <td>{url}</td>
               <td>{last_check}</td>
@@ -46,10 +44,11 @@ const PublicRulesIndex = observer(() => {
               <td>
                 <NavLink
                   // className="link-to-auth"
+                  className="link-icon-field"
                   onClick={() => history.push(PUBLIC_RULES_ROUTE + '/' + id)}
                   to={PUBLIC_RULES_ROUTE + '/' + id}
                 >
-                  Смотреть
+                  <i className="fas fa-eye"></i>
                 </NavLink>
               </td>
             </tr>

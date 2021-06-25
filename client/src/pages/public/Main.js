@@ -27,7 +27,7 @@ const Main = observer(() => {
           <Row>
             <h1 className="main-h1-welcome">Welcome to Parser</h1>
           </Row>
-          <Row>
+          <Row className="justify-content-center">
             <p>
               Простое приложение по остлеживанию изменний на статических и
               динамических станицах в интернете
@@ -41,29 +41,27 @@ const Main = observer(() => {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>id</th>
             <th>Наименование</th>
             <th>url</th>
             <th>Время последней проверки</th>
             <th>Время последнего изменения</th>
-            <th></th>
+            <th>Просмотр</th>
           </tr>
         </thead>
         <tbody>
           {rule.rules.map(({ id, name, url, last_check, page_changed }) => (
             <tr key={id}>
-              <td>{id}</td>
               <td>{name}</td>
               <td>{url}</td>
               <td>{last_check}</td>
               <td>{page_changed}</td>
               <td>
                 <NavLink
-                  // className="link-to-auth"
+                  className="link-icon-field"
                   onClick={() => history.push(PUBLIC_RULES_ROUTE + '/' + id)}
                   to={PUBLIC_RULES_ROUTE + '/' + id}
                 >
-                  Смотреть
+                  <i className="fas fa-eye"></i>
                 </NavLink>
               </td>
             </tr>

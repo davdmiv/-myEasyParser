@@ -26,3 +26,67 @@ body {
 /* .my-nav-style {
   color: white;
 } */
+.marked {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  background-color: #bbeffd;
+  border: 1px solid #61dafb;
+  margin-top: 1rem;
+  box-sizing: content-box;
+  min-height: 24px;
+}
+.unmarked {
+  font-weight: bold;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  margin-top: 1rem;
+}
+
+.rule-changenote-padding {
+  padding: 2.3rem 1rem 1rem 1rem;
+}
+
+.rule-padding {
+  padding: 2rem 0 0.5rem 0;
+}
+
+.link-icon-field {
+  color: #6c757d;
+  border: 1px solid;
+  display: block;
+  text-align: center;
+  margin: auto;
+  width: 30px;
+  height: 28px;
+  align-content: center;
+  border-radius: 5px;
+}
+
+.link-icon-field:hover {
+  color: #343a40;
+}
+
+.hr-seporator {
+  margin: 40px 30px 30px 30px;
+}
+
+.navbar-link:hover {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+}
+
+.link-download {
+  display: block;
+  width: fit-content;
+  padding: 0px 8px 1px 8px;
+  color: #6c757d;
+  border: 1px solid;
+  border-radius: 5px;
+  text-align: center;
+  margin: auto;
+}
+
+.link-download:hover {
+  color: #343a40;
+  text-decoration: none;
+}

@@ -3,8 +3,8 @@ import { $authHost, $host } from './index'
 // public
 
 export const fetchPublicRule = async (id) => {
-  const { rule } = await $host.get(`api/rules/public/${id}`)
-  return rule
+  const { data } = await $host.get(`api/rules/public/${id}`)
+  return data.rule
 }
 
 export const fetchPublicRules = async () => {
@@ -15,26 +15,26 @@ export const fetchPublicRules = async () => {
 // user
 
 export const fetchRule = async (id) => {
-  const { rule } = await $authHost.get(`api/rules/${id}`)
-  return rule
+  const { data } = await $authHost.get(`api/rules/${id}`)
+  return data
 }
 
 export const fetchRules = async () => {
-  const { rules } = await $authHost.get('api/rules')
-  return rules
+  const { data } = await $authHost.get('api/rules')
+  return data.rules
 }
 
 export const createRule = async (params) => {
-  const { rule } = await $authHost.post('api/rules', params)
-  return rule
+  const { data } = await $authHost.post('api/rules', params)
+  return data
 }
 
 export const updateRule = async (id, params) => {
-  const { rule } = await $authHost.put(`api/rules/${id}`, params)
-  return rule
+  const { data } = await $authHost.put(`api/rules/${id}`, params)
+  return data
 }
 
 export const deleteRule = async (id) => {
-  const { rule } = await $authHost.delete(`api/rules/${id}`)
-  return rule
+  const { data } = await $authHost.delete(`api/rules/${id}`)
+  return data
 }

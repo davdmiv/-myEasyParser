@@ -1,5 +1,7 @@
 const { Rule, Privilege, UserRule } = require('../db/models/index')
 const ApiError = require('../error/ApiError')
+const { Op } = require('sequelize')
+// const { and, or, ne, in: opIn } = Sequelize.Op
 
 const checkShowPermition = async (user, rule) => {
   if (user.id === rule.user_id) return true
@@ -58,7 +60,25 @@ class RuleController {
   }
 
   async index(req, res) {
-    const rules = await Rule.findAll()
+    const userRules = await UserRule.findAll({
+      attributes: [['rule_id', 'id']],
+      where: { user_id: req.user.id },
+    })
+
+    const allUserRuleIds = userRules.map((userRule) => userRule.dataValues.id)
+
+    const rules = await Rule.findAll({
+      where: {
+        [Op.or]: [
+          { user_id: req.user.id },
+          { user_id: { [Op.in]: allUserRuleIds } },
+        ],
+      },
+      include: [
+        { association: 'changenotes' },
+        { association: 'owner', attributes: ['email', 'nikname'] },
+      ],
+    })
     return res.json({ rules })
   }
 
