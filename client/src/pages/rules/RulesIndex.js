@@ -1,34 +1,68 @@
-import React, { useContext, useEffect } from 'react'
-import { Table, Container, Row } from 'react-bootstrap'
-import { Context } from '../../index'
+import React, { useState, useEffect } from 'react'
+import { Table, Container, Row, Col } from 'react-bootstrap'
+// import { Context } from '../../index'
 import { observer } from 'mobx-react-lite'
 import { fetchRules, deleteRule } from '../../http/ruleAPI'
 import { NavLink, useHistory } from 'react-router-dom'
 import { RULES_ROUTE } from '../../utils/consts'
+import UserRulesList from '../../components/UserRulesList'
+import { Spinner } from 'react-bootstrap'
+import ListGroup from 'react-bootstrap/ListGroup'
 
 // function deleteConfirm (id) {
 //   deleteRule()
 // }
 
 const RulesIndex = observer(() => {
-  const { rule } = useContext(Context)
+  const [rules, setRules] = useState([])
+  const [loading, setLoading] = useState(true)
   const history = useHistory()
 
   useEffect(() => {
     fetchRules()
       .then((data) => {
+        setRules(data)
         console.log('data', data)
-        rule.setRules(data)
       })
       .catch((e) => alert(e))
+      .finally(() => setLoading(false))
   }, [])
+
+  if (loading) {
+    return <Spinner animation={'grow'} />
+  }
 
   return (
     <Container>
       <Row>
-        <h1 className="main-h1-welcome">Ваши правила</h1>
+        <h1 className="rule-index-m">Список всех ваших правил</h1>
       </Row>
-      <Table striped bordered hover>
+      <Row className="user-rules-list-header">
+        <Col className="m-auto">
+          <Row>Наименование правила</Row>
+          <Row>URL</Row>
+        </Col>
+        <Col xs={2} className="m-auto">
+          <Row className="justify-content-center">Статус</Row>
+        </Col>
+        <Col xs={2} className="m-auto">
+          <Row>Дата последней проверки</Row>
+          <Row>Дата последнего изменения</Row>
+        </Col>
+        <Col xs={2} className="m-auto">
+          <Row className="justify-content-center">Частота проверки</Row>
+        </Col>
+        <Col xs={2} className="m-auto">
+          <Row className="justify-content-center">Следующая проверка</Row>
+        </Col>
+        <Col xs={1} className="m-auto">
+          <Row className="justify-content-center">Смотреть</Row>
+          <Row className="justify-content-center">Редактировать</Row>
+          <Row className="justify-content-center">Удалить</Row>
+        </Col>
+      </Row>
+      <UserRulesList rules={rules}></UserRulesList>
+      {/* <Table striped bordered hover>
         <thead>
           <tr>
             <th>Наименование</th>
@@ -81,7 +115,7 @@ const RulesIndex = observer(() => {
               </tr>
             ))}
         </tbody>
-      </Table>
+      </Table> */}
     </Container>
   )
 })
