@@ -29,6 +29,11 @@ export const createRule = async (params) => {
   return data
 }
 
+export const testRule = async (params) => {
+  const { data } = await $authHost.post('api/rules/test', params)
+  return data
+}
+
 export const updateRule = async (id, params) => {
   const { data } = await $authHost.put(`api/rules/${id}`, params)
   return data

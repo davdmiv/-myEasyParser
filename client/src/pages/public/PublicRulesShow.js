@@ -12,7 +12,6 @@ const PublicRulesShow = () => {
     fetchPublicRule(id).then((data) => setPublicRule(data))
   }, [])
 
-  console.log(publicRule)
   /*
   name: "google-parser"
   url: "http://www.google.com"

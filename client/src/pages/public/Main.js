@@ -13,7 +13,6 @@ const Main = observer(() => {
   useEffect(() => {
     fetchPublicRules()
       .then((data) => {
-        console.log('data', data)
         rule.setRules(data)
       })
       .catch((e) => alert(e))

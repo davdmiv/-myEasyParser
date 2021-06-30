@@ -121,16 +121,6 @@ export const adminRoutes = [
 export const userRoutes = [
   // /rules
   {
-    // show
-    path: RULES_ROUTE + '/:id',
-    Component: RulesShow,
-  },
-  {
-    // index
-    path: RULES_ROUTE,
-    Component: RulesIndex,
-  },
-  {
     // new
     path: RULES_ROUTE + '/new',
     Component: Rules,
@@ -139,6 +129,16 @@ export const userRoutes = [
     // edit
     path: RULES_ROUTE + '/:id/edit',
     Component: Rules,
+  },
+  {
+    // show
+    path: RULES_ROUTE + '/:id',
+    Component: RulesShow,
+  },
+  {
+    // index
+    path: RULES_ROUTE,
+    Component: RulesIndex,
   },
   // /changenotes
   {

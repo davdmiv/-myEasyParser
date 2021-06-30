@@ -56,10 +56,14 @@ body {
   display: block;
   text-align: center;
   margin: auto;
-  width: 30px;
-  height: 28px;
+  width: 28px;
+  height: 26px;
   align-content: center;
   border-radius: 5px;
+}
+
+a.link-icon-field + a.link-icon-field {
+  margin-left: 2px;
 }
 
 .link-icon-field:hover {
@@ -93,9 +97,10 @@ body {
 
 /* .user-rules-list {
 }
-
-.user-rules-list-item {
-} */
+*/
+/* .user-rules-list-item {
+  
+}  */
 
 .user-rules-list-header {
   background: #c4c4c4;
@@ -112,4 +117,25 @@ body {
 
 .rule-index-m {
   margin: 35px 0px 25px 35px;
+}
+
+.list-rules:nth-child(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.bg-no-owner-color {
+  background-color: #faf1bd !important;
+}
+
+.rules-dt-selectors {
+  text-align-last: center;
+  margin: 0px 3px;
+}
+
+#basic-nav-dropdown {
+  color: white;
+}
+
+#basic-nav-dropdown:hover {
+  color: #f8f9fa;
 }

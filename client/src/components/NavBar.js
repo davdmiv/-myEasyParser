@@ -22,6 +22,7 @@ const NavBar = observer(() => {
   const logOut = () => {
     user.setUser({})
     user.setIsAuth(false)
+    localStorage.removeItem('token')
   }
 
   return (
@@ -38,7 +39,11 @@ const NavBar = observer(() => {
           )}
         </Nav>
         {user.isAuth ? (
-          <NavDropdown title={user.email} id="basic-nav-dropdown">
+          <NavDropdown
+            title={user.email}
+            id="basic-nav-dropdown"
+            className="text-white"
+          >
             <NavDropdown.Item href="#action/3.1" onClick={() => logOut()}>
               Выйти
             </NavDropdown.Item>
