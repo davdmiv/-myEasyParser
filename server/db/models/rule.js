@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.ChangeNote, {
         foreignKey: {
           name: 'rule_id',
-          allowNull: false,
+          allowNull: true,
         },
         onDelete: 'CASCADE',
         as: 'changenotes',

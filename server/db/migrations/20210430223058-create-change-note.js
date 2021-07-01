@@ -20,7 +20,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      shrub_rule_cache: {
+      shrub: {
+        type: Sequelize.STRING,
+      },
+      shrub_cache: {
         type: Sequelize.STRING,
       },
       shrub_calc_cache: {
@@ -44,7 +47,7 @@ module.exports = {
         },
         onUpdate: 'cascade',
         onDelete: 'cascade',
-        allowNull: false,
+        allowNull: true,
       },
       created_at: {
         allowNull: false,

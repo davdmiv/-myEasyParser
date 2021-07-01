@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.Rule, {
         foreignKey: {
           name: 'rule_id',
-          allowNull: false,
+          allowNull: true,
         },
         onDelete: 'CASCADE',
       })
@@ -31,7 +31,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      shrub_rule_cache: {
+      shrub: {
+        type: DataTypes.STRING,
+      },
+      shrub_cache: {
         type: DataTypes.STRING,
       },
       shrub_calc_cache: {
