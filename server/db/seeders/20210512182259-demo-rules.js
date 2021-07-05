@@ -7,12 +7,12 @@ module.exports = {
       [
         {
           id: 1,
-          name: 'google-parser',
-          url: 'http://www.google.com',
-          shrub_rule: 'div',
+          name: 'svyaznoy ps5',
+          url: 'https://www.svyaznoy.ru/catalog/gamepad/9209/5796227',
+          shrub_rule: '.b-offer-box__right.mobile',
           shrub_cache: '',
           frequency: new Date(),
-          page_type: 'static',
+          page_type: 'dynamic',
           page_changed: null,
           last_check: null,
           duration: null,

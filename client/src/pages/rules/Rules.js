@@ -10,11 +10,11 @@ import {
 import Form from 'react-bootstrap/Form'
 import { Context } from '../../index'
 import { observer } from 'mobx-react-lite'
-import { fetchRule } from '../../http/ruleAPI'
+import { fetchRule, testRule } from '../../http/ruleAPI'
 // import { NavLink, useHistory } from 'react-router-dom'
 // import { RULES_ROUTE } from '../../utils/consts'
 import { useParams } from 'react-router-dom'
-
+import AlertComponent from '../../components/AlertComponent'
 // activate_cnt: 0
 // activate_status: true
 // changenotes: (3) [{…}, {…}, {…}]
@@ -49,9 +49,14 @@ const Rules = observer(() => {
   const [frHr, setFrHr] = useState(0)
   const [frMin, setFrMin] = useState(0)
   const [description, setDescription] = useState('')
-  const [subInfoVisibility, setSubInfoVisibility] = useState(false)
+  const [subInfoVisibility, setSubInfoVisibility] = useState(true)
 
   const [loading, setLoading] = useState(true)
+  const [alertInfo, setAlertInfo] = useState({
+    header: '',
+    message: '',
+    show: false,
+  })
 
   function formInitForEdit(data) {
     setName(data.rule.name)
@@ -67,7 +72,13 @@ const Rules = observer(() => {
           rule.setRule(data)
           formInitForEdit(data)
         })
-        .catch((e) => alert(e))
+        .catch((e) =>
+          setAlertInfo({
+            header: 'Ошибка',
+            message: e.response.data.message,
+            show: true,
+          })
+        )
         .finally(() => setLoading(false))
     } else {
       rule.setRule({})
@@ -84,7 +95,18 @@ const Rules = observer(() => {
   const testBtnClick = (e) => {
     e.preventDefault()
 
-    useEffect(() => {})
+    testRule({ name, url, shrubRule, pageType })
+      .then((data) => {
+        console.log('data в Rules', data)
+      })
+      .catch((e) => {
+        setAlertInfo({
+          header: 'Ошибка',
+          message: e.response.data.message,
+          show: true,
+        })
+      })
+    // .catch((e) => alert(e))
     // setSubInfoVisibility(true)
   }
 
@@ -152,6 +174,9 @@ const Rules = observer(() => {
             Тестировать
           </Button>
         </Row>
+        {alertInfo.show && (
+          <AlertComponent alertInfo={alertInfo} setInfo={setAlertInfo} />
+        )}
 
         {subInfoVisibility && (
           <div>

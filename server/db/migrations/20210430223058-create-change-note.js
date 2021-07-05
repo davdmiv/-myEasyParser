@@ -21,7 +21,7 @@ module.exports = {
         allowNull: false,
       },
       shrub: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
       },
       shrub_cache: {
         type: Sequelize.STRING,

@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       shrub: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
       },
       shrub_cache: {
         type: DataTypes.STRING,

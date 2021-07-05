@@ -1,6 +1,7 @@
 const { Rule, Privilege, UserRule } = require('../db/models/index')
 const ApiError = require('../error/ApiError')
 const { Op } = require('sequelize')
+const axios = require('axios').default
 // const { and, or, ne, in: opIn } = Sequelize.Op
 
 const checkShowPermition = async (user, rule) => {
@@ -82,9 +83,23 @@ class RuleController {
     return res.json({ rules })
   }
 
-  async testRule(req, res) {
+  async testRule(req, res, next) {
     // метод который должен обмениваться с приложением парсера
     // а обновлять его данными вьюху создания правила
+    try {
+      const testResult = await axios({
+        method: 'post',
+        url: 'http://localhost:5001/api/rules/test',
+        responseType: 'json',
+        params: { ...req.body },
+        timeout: 60000,
+      })
+      return res.json(testResult.data)
+    } catch (error) {
+      // console.log(error)
+      return next(ApiError.internal('Непредвиденная ошибка'))
+    }
+    // return res.json(testResult.data)
   }
 
   // фильный create, когда все данные протестированы и собраны
