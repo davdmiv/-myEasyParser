@@ -1,25 +1,27 @@
-import { observer } from 'mobx-react-lite'
-import React, { useState } from 'react'
+import React from 'react'
 import { Button, Alert, Modal } from 'react-bootstrap'
 
-const AlertComponent = observer(({ alertInfo, setInfo }) => {
+const AlertComponent = (props) => {
   return (
-    // <Modal>
-    <Alert show={alertInfo.show} variant="danger">
-      <Alert.Heading>{alertInfo.header}</Alert.Heading>
-      <p>{alertInfo.message}</p>
-      <hr />
-      <div className="d-flex justify-content-end">
-        <Button
-          onClick={() => setInfo({ message: '', header: '', show: false })}
-          variant="outline-danger"
-        >
-          Ок
-        </Button>
-      </div>
-    </Alert>
-    // </Modal>
+    <Modal
+      contentClassName="bg-transparent"
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Alert variant="danger">
+        <Alert.Heading>{props.info.header}</Alert.Heading>
+        <p>{props.info.message}</p>
+        <hr />
+        <div className="d-flex justify-content-end">
+          <Button onClick={props.onHide} variant="outline-danger">
+            Ок
+          </Button>
+        </div>
+      </Alert>
+    </Modal>
   )
-})
+}
 
 export default AlertComponent

@@ -52,10 +52,10 @@ const Rules = observer(() => {
   const [subInfoVisibility, setSubInfoVisibility] = useState(true)
 
   const [loading, setLoading] = useState(true)
+  const [alertShow, setAlertShow] = useState(false)
   const [alertInfo, setAlertInfo] = useState({
     header: '',
     message: '',
-    show: false,
   })
 
   function formInitForEdit(data) {
@@ -90,8 +90,6 @@ const Rules = observer(() => {
     return <Spinner animation={'grow'} />
   }
 
-  // const = useState()
-
   const testBtnClick = (e) => {
     e.preventDefault()
 
@@ -103,10 +101,11 @@ const Rules = observer(() => {
         setAlertInfo({
           header: 'Ошибка',
           message: e.response.data.message,
-          show: true,
         })
+        setAlertShow(true)
+        console.log('e', e)
+        console.log('e.response', e.response)
       })
-    // .catch((e) => alert(e))
     // setSubInfoVisibility(true)
   }
 
@@ -174,8 +173,12 @@ const Rules = observer(() => {
             Тестировать
           </Button>
         </Row>
-        {alertInfo.show && (
-          <AlertComponent alertInfo={alertInfo} setInfo={setAlertInfo} />
+        {alertShow && (
+          <AlertComponent
+            show={alertShow}
+            info={alertInfo}
+            onHide={() => setAlertShow(false)}
+          />
         )}
 
         {subInfoVisibility && (
