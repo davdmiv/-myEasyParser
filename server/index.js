@@ -10,7 +10,7 @@ const path = require('path')
 const app = express()
 app.use(cors())
 app.use(express.json())
-app.use('/static', express.static(path.resolve(__dirname, 'static')))
+app.use(express.static(path.resolve(__dirname, 'static/changenotes')))
 app.use('/api', router)
 
 //Обработка ошибок, последний Middleware! Потому как не вызывается next() и ответ уходит на клиент

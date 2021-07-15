@@ -1,4 +1,4 @@
-const { Rule, Privilege, UserRule } = require('../db/models/index')
+const { Rule, Privilege, UserRule, ChangeNote } = require('../db/models/index')
 const ApiError = require('../error/ApiError')
 const { Op } = require('sequelize')
 const axios = require('axios').default
@@ -96,8 +96,7 @@ class RuleController {
       })
       return res.json(testResult.data)
     } catch (error) {
-      // console.log(error)
-      return next(ApiError.internal('Непредвиденная ошибка'))
+      return next(ApiError.internal(error.response.data.message))
     }
     // return res.json(testResult.data)
   }
@@ -111,13 +110,9 @@ class RuleController {
       shrub_cache,
       frequency,
       page_type,
-      page_changed,
-      last_check,
-      duration,
       public_status,
       description,
-      activate_cnt,
-      activate_status,
+      test_change_note_id,
     } = req.body
 
     const rule = await Rule.create({
@@ -127,13 +122,8 @@ class RuleController {
       shrub_cache,
       frequency,
       page_type,
-      page_changed,
-      last_check,
-      duration,
       public_status,
       description,
-      activate_cnt,
-      activate_status,
       user_id: req.user.id,
     })
 
@@ -144,7 +134,14 @@ class RuleController {
         rule_id: rule.id,
         privilege_id: 1,
       })
+
+      if (test_change_note_id) {
+        await ChangeNote.findByPk(test_change_note_id).then((note) =>
+          note.update({ rule_id: rule.id })
+        )
+      }
     }
+
     return res.json({ rule })
   }
 
@@ -157,12 +154,8 @@ class RuleController {
       shrub_cache,
       frequency,
       page_type,
-      page_changed,
-      last_check,
-      duration,
       public_status,
       description,
-      activate_cnt,
       activate_status,
     } = req.body
 
@@ -179,12 +172,8 @@ class RuleController {
       shrub_cache,
       frequency,
       page_type,
-      page_changed,
-      last_check,
-      duration,
       public_status,
       description,
-      activate_cnt,
       activate_status,
     })
     return res.json({ rule })

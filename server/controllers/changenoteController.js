@@ -2,6 +2,7 @@ const { ChangeNote, Rule, Privilege, UserRule } = require('../db/models/index')
 const ApiError = require('../error/ApiError')
 
 const checkShowPermition = async (user, rule) => {
+  if (rule === null) return true
   if (user.id === rule.user_id) return true
   const userRules = await UserRule.findOne({
     where: { user_id: user.id, rule_id: rule.id },
@@ -13,6 +14,7 @@ const checkShowPermition = async (user, rule) => {
 }
 
 const checkEditPermition = async (user, rule) => {
+  if (rule === null) return true
   if (user.id === rule.user_id) return true
   const userRules = await UserRule.findOne({
     where: { user_id: user.id, rule_id: rule.id },

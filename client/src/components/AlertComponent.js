@@ -4,7 +4,7 @@ import { Button, Alert, Modal } from 'react-bootstrap'
 const AlertComponent = (props) => {
   return (
     <Modal
-      contentClassName="bg-transparent"
+      contentClassName="bg-transparent border-0"
       {...props}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
