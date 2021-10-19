@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       screenshot_attachment: {
         type: DataTypes.STRING(1000),
-        allowNull: false,
+        allowNull: true,
       },
       html_attachment: {
         type: DataTypes.STRING(1000),

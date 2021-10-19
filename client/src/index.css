@@ -139,3 +139,15 @@ a.link-icon-field + a.link-icon-field {
 #basic-nav-dropdown:hover {
   color: #f8f9fa;
 }
+
+.width-10pc {
+  width: 10%;
+}
+
+.width-20pc {
+  width: 20%;
+}
+
+.width-40pc {
+  width: 40%;
+}

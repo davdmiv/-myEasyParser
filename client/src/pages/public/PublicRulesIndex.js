@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { Table, Container, Row } from 'react-bootstrap'
+import { Table, Container } from 'react-bootstrap'
 import { Context } from '../../index'
 import { observer } from 'mobx-react-lite'
 import { fetchPublicRules } from '../../http/ruleAPI'
@@ -20,17 +20,19 @@ const PublicRulesIndex = observer(() => {
 
   return (
     <Container>
-      <Row>
-        <h1 className="main-h1-welcome">Публичные правила</h1>
-      </Row>
+      <h4 className="m-4">Все публичные правила</h4>
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Наименование</th>
-            <th>url</th>
-            <th>Время последней проверки</th>
-            <th>Время последнего изменения</th>
-            <th>Просмотр</th>
+            <th className="align-middle width-20pc">Наименование</th>
+            <th className="text-center align-middle width-40pc">URL</th>
+            <th className="text-center align-middle width-20pc">
+              Время последней проверки
+            </th>
+            <th className="text-center align-middle width-20pc">
+              Время последнего изменения
+            </th>
+            <th className="text-center align-middle width-10pc">Смотреть</th>
           </tr>
         </thead>
         <tbody>

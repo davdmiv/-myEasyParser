@@ -35,7 +35,7 @@ const RulesIndex = observer(() => {
     <Container>
       <Row className="rule-index-m">
         <Col md={8}>
-          <h1>Список всех ваших правил</h1>
+          <h4>Список всех ваших правил</h4>
         </Col>
         <Col md={4} className="m-auto text-center">
           <NavLink

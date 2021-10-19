@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { Table, Container, Row, Col } from 'react-bootstrap'
+import { Table, Container, Col } from 'react-bootstrap'
 import { Context } from '../../index'
 import { observer } from 'mobx-react-lite'
 import { fetchPublicRules } from '../../http/ruleAPI'
@@ -23,28 +23,27 @@ const Main = observer(() => {
     <Container>
       {!user.isAuth && (
         <Col>
-          <Row>
-            <h1 className="main-h1-welcome">Welcome to Parser</h1>
-          </Row>
-          <Row className="justify-content-center">
-            <p>
-              Простое приложение по остлеживанию изменний на статических и
-              динамических станицах в интернете
-            </p>
-          </Row>
+          <h1 className="text-center m-5">Welcome to Parser</h1>
+          {/* <h1 className="main-h1-welcome">Welcome to Parser</h1> */}
+          <p className="text-center m-5">
+            Простое приложение по остлеживанию изменний на статических и
+            динамических станицах в интернете
+          </p>
         </Col>
       )}
-      <Row>
-        <h2 className="main-h1-welcome">Последние публичные правила</h2>
-      </Row>
+      <h4 className="m-4">Последние публичные правила</h4>
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Наименование</th>
-            <th>url</th>
-            <th>Время последней проверки</th>
-            <th>Время последнего изменения</th>
-            <th>Просмотр</th>
+            <th className="align-middle">Наименование</th>
+            <th className="text-center align-middle">URL</th>
+            <th className="text-center align-middle">
+              Время последней проверки
+            </th>
+            <th className="text-center align-middle">
+              Время последнего изменения
+            </th>
+            <th className="text-center align-middle">Смотреть</th>
           </tr>
         </thead>
         <tbody>
@@ -52,9 +51,9 @@ const Main = observer(() => {
             <tr key={id}>
               <td>{name}</td>
               <td>{url}</td>
-              <td>{last_check}</td>
-              <td>{page_changed}</td>
-              <td>
+              <td className="text-center">{last_check}</td>
+              <td className="text-center">{page_changed}</td>
+              <td className="text-center">
                 <NavLink
                   className="link-icon-field"
                   onClick={() => history.push(PUBLIC_RULES_ROUTE + '/' + id)}

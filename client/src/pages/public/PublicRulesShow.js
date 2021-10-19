@@ -35,7 +35,7 @@ const PublicRulesShow = () => {
 */
   return (
     <Container className="mt-8">
-      <h2 className="rule-padding">Правило {publicRule.name}</h2>
+      <h4 className="rule-padding">Правило {publicRule.name}</h4>
       <Row>
         <Col md={3} className="unmarked">
           URL
@@ -103,7 +103,7 @@ const PublicRulesShow = () => {
           </Row>
         </Col>
       </Row>
-      <h3 className="rule-changenote-padding">Последние события по правилу</h3>
+      <h4 className="rule-changenote-padding">Последние события по правилу</h4>
       <PublicChangeNotesTable changenotes={publicRule.changenotes} />
     </Container>
   )

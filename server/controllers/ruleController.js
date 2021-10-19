@@ -91,9 +91,10 @@ class RuleController {
         method: 'post',
         url: 'http://localhost:5001/api/rules/test',
         responseType: 'json',
-        params: { ...req.body },
+        data: { ...req.body },
         timeout: 60000,
       })
+      console.log('testResult.data', testResult.data)
       return res.json(testResult.data)
     } catch (error) {
       return next(ApiError.internal(error.response.data.message))

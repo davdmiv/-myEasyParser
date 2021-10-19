@@ -10,7 +10,7 @@ module.exports = {
       },
       screenshot_attachment: {
         type: Sequelize.STRING(1000),
-        allowNull: false,
+        allowNull: true,
       },
       html_attachment: {
         type: Sequelize.STRING(1000),
