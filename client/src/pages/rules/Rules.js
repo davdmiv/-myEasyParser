@@ -35,6 +35,12 @@ const Rules = observer(() => {
   const [frequency, setFrequency] = useState('')
 
   // устанавливается после теста
+  const [subFields, setSubFields] = useState({
+    lastCheck: '-//-', // Время последней проверки
+    duration: '-//-', // Длительность последней проверки
+    pageChanged: '-//-', // Время последнего изменения
+    activateCnt: 0, // Количество запусков
+  })
   const [shrubCache, setShrubCache] = useState('')
   const [publicStatus, setPublicStatus] = useState('private')
   const [activateStatus, setActivateStatus] = useState('active')
@@ -44,24 +50,18 @@ const Rules = observer(() => {
 
   const [loading, setLoading] = useState(true)
   const [subInfoVisibility, setSubInfoVisibility] = useState(false)
-  const [alertShow, setMyAlertShow] = useState(false)
   const [alertInfo, setAlertInfo] = useState({
     header: '',
     message: '',
+    show: false,
   })
   const [ruleTestResults, setRuleTestResults] = useState(false)
   const [changeNote, setChangeNote] = useState({})
 
-  const [lastCheck, setLastCheck] = useState('заглушка1') // Время последней проверки
-  const [duration, setDuration] = useState('заглушка2') // Длительность последней проверки
-  const [pageChanged, setPageChanged] = useState('заглушка3') // Время последнего изменения
-  const [activateCnt, setActivateCnt] = useState('заглушка4') // Количество запусков
-
   function formInitForEdit({ rule }) {
-    setName(rule.name)
-    setUrl(rule.url)
-    setPageType(rule.page_type)
-    setShrubRule(rule.shrub_rule)
+    setBaseFields({
+      ...rule,
+    })
   }
 
   function subFieldsSetData(data) {
@@ -107,55 +107,32 @@ const Rules = observer(() => {
         event.target.disabled = false
       })
       .catch((e) => {
-        // const message = e.response.data ?
-        // setAlertInfo({
-        //   header: 'Ошибка',
-        //   message: e.response.data.message,
-        // })
-        // console.log('alertShow', alertShow)
-        setMyAlertShow(true)
+        setAlertInfo({ ...alertInfo, show: true })
         event.target.disabled = false
-
-        // console.log('e', e) // Отладка
-        // console.log('e.response', e.response) // Отладка
       })
-    // setSubInfoVisibility(true)
   }
 
   const submitRule = (e) => {
     e.preventDefault()
-
-    // console.log('createRule', {
-    //   name,
-    //   url,
-    //   shrub_rule: shrubRule,
-    //   shrub_cache: shrubCache,
-    //   frequency,
-    //   page_type: pageType,
-    //   public_status: publicStatus,
-    //   description,
-    //   activate_status: activateStatus,
-    //   test_change_note_id: changeNoteId,
-    // })
-    // createRule({})
   }
 
   return (
     <Container>
-      {alertShow && (
+      {alertInfo.show && (
         <AlertComponent
-          show={alertShow}
+          show={alertInfo.show}
           info={alertInfo}
-          onHide={() => setMyAlertShow(false)}
+          onHide={() => setAlertInfo({ ...alertInfo, show: false })}
         />
       )}
+
       <Row className="rule-index-m">
         <Col>
           <h1>Новое правило</h1>
         </Col>
       </Row>
 
-      <BasicFields />
+      <BasicFields mainFields={baseFields} setMainFields={setBaseFields} />
 
       <Form>
         <Row className="mt-2 mb-5">

@@ -1,34 +1,41 @@
 import React from 'react'
 import { Row, Col, Form } from 'react-bootstrap'
 
-const BasicFields = ({ name, url }) => {
+const BasicFields = ({ mainFields, setMainFields }) => {
+  const PAGE_TYPES = ['static', 'dynamic']
   return (
-    <>
+    <div>
       <Form.Group controlId="rulesForm.name">
         <Form.Label>Наименование</Form.Label>
         <Form.Control
-          value={name}
+          value={mainFields.name}
           type="text"
           placeholder="введите наименование вашего правила"
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) =>
+            setMainFields({ ...mainFields, name: e.target.value })
+          }
         />
       </Form.Group>
       <Form.Group controlId="rulesForm.url">
         <Form.Label>URL</Form.Label>
         <Form.Control
-          value={url}
+          value={mainFields.url}
           type="text"
           placeholder="введите url адрес по которому будет осуществляться проверка изменений"
-          onChange={(e) => setUrl(e.target.value)}
+          onChange={(e) =>
+            setMainFields({ ...mainFields, url: e.target.value })
+          }
         />
       </Form.Group>
       <Form.Group controlId="rulesForm.shrub_rule">
         <Form.Label>Правило куста DOM</Form.Label>
         <Form.Control
-          value={shrubRule}
+          value={mainFields.shrubRule}
           type="text"
           placeholder="введите наименование css класса, по которому будут отслеживаться изменения на странице"
-          onChange={(e) => setShrubRule(e.target.value)}
+          onChange={(e) =>
+            setMainFields({ ...mainFields, shrubRule: e.target.value })
+          }
         />
       </Form.Group>
 
@@ -39,9 +46,9 @@ const BasicFields = ({ name, url }) => {
         <Col sm="3">
           <Form.Control
             as="select"
-            value={pageType}
+            value={mainFields.pageType}
             onChange={(e) => {
-              setPageType(PAGE_TYPES.find((type) => type === e.target.value))
+              setMainFields({ ...mainFields, pageType: e.target.value })
             }}
           >
             <option key={PAGE_TYPES[0]} value={PAGE_TYPES[0]}>
@@ -53,7 +60,7 @@ const BasicFields = ({ name, url }) => {
           </Form.Control>
         </Col>
       </Form.Group>
-    </>
+    </div>
   )
 }
 
