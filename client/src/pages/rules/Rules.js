@@ -39,14 +39,13 @@ const Rules = observer(() => {
     lastCheck: '-//-', // Время последней проверки
     duration: '-//-', // Длительность последней проверки
     pageChanged: '-//-', // Время последнего изменения
+    description: '', // Описание
     activateCnt: 0, // Количество запусков
+    shrubCache: '', // Хеш куста
+    publicStatus: false, // Флаг публичности
+    activateStatus: true, // Флаг активации
+    changeNoteId: null, // Id первой заметки
   })
-  const [shrubCache, setShrubCache] = useState('')
-  const [publicStatus, setPublicStatus] = useState('private')
-  const [activateStatus, setActivateStatus] = useState('active')
-  const [changeNoteId, setChangeNoteId] = useState(null)
-
-  const [description, setDescription] = useState('')
 
   const [loading, setLoading] = useState(true)
   const [subInfoVisibility, setSubInfoVisibility] = useState(false)
@@ -157,13 +156,13 @@ const Rules = observer(() => {
             </Form.Group>
 
             {subInfoVisibility && (
-              <RulesSubfields
-                lastCheck={lastCheck}
-                duration={duration}
-                pageChanged={pageChanged}
-                activateCnt={activateCnt}
-              />
+              <RulesSubfields fields={subFields} setFields={setSubFields} />
             )}
+
+            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+              <Form.Check type="checkbox" label="Check me out" />
+              <Form.Check type="checkbox" label="Check me out" />
+            </Form.Group>
             <hr className="hr-seporator" />
 
             <Row className="mt-4 mb-5">

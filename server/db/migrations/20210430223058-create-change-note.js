@@ -11,6 +11,7 @@ module.exports = {
       screenshot_attachment: {
         type: Sequelize.STRING(1000),
         allowNull: true,
+        defaultValue: null
       },
       html_attachment: {
         type: Sequelize.STRING(1000),
@@ -22,9 +23,11 @@ module.exports = {
       },
       shrub: {
         type: Sequelize.TEXT,
+        defaultValue: null
       },
       shrub_cache: {
         type: Sequelize.STRING,
+        defaultValue: null
       },
       shrub_calc_cache: {
         type: Sequelize.STRING,
@@ -36,6 +39,7 @@ module.exports = {
       },
       user_note: {
         type: Sequelize.STRING(1000),
+        defaultValue: null
       },
       rule_id: {
         type: Sequelize.INTEGER,
@@ -48,6 +52,7 @@ module.exports = {
         onUpdate: 'cascade',
         onDelete: 'cascade',
         allowNull: true,
+        defaultValue: null
       },
       created_at: {
         allowNull: false,

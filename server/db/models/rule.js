@@ -65,7 +65,7 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: null,
       },
       duration: {
-        type: DataTypes.TIME,
+        type: DataTypes.INTEGER,
         allowNull: true,
         defaultValue: null,
       },

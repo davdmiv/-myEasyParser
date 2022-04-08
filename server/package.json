@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "db:reset": "cd db && npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && cd ../"
+    "db:reset": "cd db && npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && cd ../",
+    "db:create": "cd db && npx sequelize db:create && cd ../",
+    "db:migrate": "cd db && npx sequelize db:migrate && cd ../",
+    "db:drop": "cd db && npx sequelize db:drop && cd ../",
+    "db:seed:all": "cd db && npx sequelize db:seed:all && cd ../"
   },
   "keywords": [],
   "author": "",
