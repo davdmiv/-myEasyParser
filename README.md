@@ -31,7 +31,7 @@
 
 
 
-[//]: # Ссылки
+[//]: # (Ссылки)
 
    [ligthParser]: <https://github.com/davdmiv/ligthParser>
    [myEasyParser]: <https://github.com/davdmiv/myEasyParser>
